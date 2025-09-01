@@ -1,0 +1,10 @@
+{
+    "B605": {
+        "vulnerability": {
+            "name": "start_process_with_shell",
+            "description": "The code at line 317 in the `get_uptime()` function uses the `subprocess.Popen()` function to execute the `uptime` command, which includes the shell=True argument. This can lead to possible injection attacks if the input to the `uptime` command is not properly sanitized."
+        },
+        "status": "affected",
+        "action_statement": "To remediate this vulnerability, the `get_uptime()` function should be modified to use the `subprocess.run()` function with the `shell=False` argument, and the command should be passed as a list of arguments instead of a single string. This will prevent potential injection attacks. For example:\n\n```python\ndef display_uptime_flag(flag):\n    src_ip = connexion.request.environ.get(\n        \"HTTP_X_FORWARDED_FOR\"\n    ) or connexion.request.environ.get(\"REMOTE_ADDR\")\n    if flag:\n        command = [\"uptime\", \"-\" + flag]\n    else:\n        command = [\"uptime\"]\n    output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).stdout\n    response = {\"response\": {\"command\": \" \".join(command), \"output\": output}}\n    return json.dumps(response, sort_keys=True, indent=2), 200\n```"
+    }
+}

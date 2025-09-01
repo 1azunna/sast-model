@@ -1,0 +1,10 @@
+{
+    "B405": {
+        "vulnerability": {
+            "name": "xml_parsing_vulnerability",
+            "description": "Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks, such as XML External Entity (XXE) and Billion Laughs attacks."
+        },
+        "status": "affected",
+        "action_statement": "Replace the usage of xml.etree.ElementTree with the defusedxml package for safer XML parsing. Alternatively, ensure that defusedxml.defuse_stdlib() is called before using xml.etree.ElementTree. Additionally, remove or secure the usage of lxml.etree with unsafe parsing options.\n\nExample fix:\n1. Install defusedxml: pip install defusedxml\n2. Replace the import statement:\n   from defusedxml import ElementTree as ET\n3. Remove or modify the lxml usage:\n   parser = etree.XMLParser(load_dtd=False, resolve_entities=False)\n   data = etree.parse(connexion.request.body, parser)"
+    }
+}

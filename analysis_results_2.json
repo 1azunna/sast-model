@@ -1,0 +1,11 @@
+{
+    "B605": {
+        "vulnerability": {
+            "name": "shell_injection",
+            "description": "The code uses subprocess.run() with the shell=False parameter, which mitigates the risk of shell injection."
+        },
+        "status": "not_affected",
+        "justification": "vulnerable_code_cannot_be_controlled_by_adversary",
+        "impact_statement": "The subprocess.run() function is used with shell=False, which prevents shell injection attacks. The command being executed is hardcoded and not influenced by user input, further reducing the risk of exploitation."
+    }
+}
